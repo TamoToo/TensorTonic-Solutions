@@ -6,10 +6,9 @@ def positional_encoding(seq_len: int, d_model: int, base: float = 10000.0) -> np
     """
     # Write code here
     res = np.zeros((seq_len, d_model), dtype=float)
-    for pos in range(seq_len):
-        for i in range(d_model):
-            p = pos / (base**(2 * (i // 2) / d_model))
-            res[pos][i] = np.sin(p) if i % 2 == 0 else np.cos(p)
-
-    print(res)
+    pos = np.arange(seq_len)[:, np.newaxis]
+    i = np.arange(d_model)[np.newaxis, :]
+    angles = pos / (base ** (2 * (i // 2) / d_model))
+    res[:, 0::2] = np.sin(angles[:, 0::2])  # Even indices: sin
+    res[:, 1::2] = np.cos(angles[:, 1::2])
     return res
