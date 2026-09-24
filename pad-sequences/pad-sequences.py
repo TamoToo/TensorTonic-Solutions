@@ -9,7 +9,7 @@ def pad_sequences(seqs: list, pad_value: int = 0, max_len: int | None = None) ->
     # Your code here
     if not seqs:
         return np.array([], dtype=int).reshape(0, 0)
-    # Find max_len
+        
     if not max_len:
         max_len = len(max(seqs, key=len))
 
@@ -20,5 +20,4 @@ def pad_sequences(seqs: list, pad_value: int = 0, max_len: int | None = None) ->
         else:
             results.append(seq[:max_len])
 
-    print(seqs)
     return np.asarray(results, dtype=int)
