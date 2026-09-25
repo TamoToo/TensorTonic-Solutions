@@ -54,6 +54,6 @@ def encoder_block(x: np.ndarray, W_q: np.ndarray, W_k: np.ndarray, W_v: np.ndarr
     Returns the post-normalized Transformer encoder states.
     """
     mha = multi_head_attention(x, x, x, W_q, W_k, W_v, W_o, num_heads)
-    z = layer_norm(x + mha, gamma1, beta1)
-    y = layer_norm(z + feed_forward(z, W1, b1, W2, b2), gamma2, beta2)
-    return y
+    x = layer_norm(x + mha, gamma1, beta1)
+    x = layer_norm(x + feed_forward(x, W1, b1, W2, b2), gamma2, beta2)
+    return x
