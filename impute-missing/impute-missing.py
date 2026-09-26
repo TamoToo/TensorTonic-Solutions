@@ -7,16 +7,15 @@ def impute_missing(X: list, strategy: str = "mean") -> np.ndarray:
     # Write code here
     res = np.asarray(X, dtype=float).copy()
     nans = np.argwhere(np.isnan(X))
+    stats = np.nanmean(X, axis=0) if strategy == "mean" else np.nanmedian(X, axis=0)
     if res.ndim == 1:
-        stat = np.nanmean(X) if strategy == "mean" else np.nanmedian(X)
-        if np.isnan(stat):
-            stat = 0.0
-        res[nans] = stat
+        if np.isnan(stats):
+            stats = 0.0
+        res[nans] = stats
         return res
         
     rows, cols = nans[:, 0], nans[:, 1]
-    stat = np.nanmean(X, axis=0) if strategy == "mean" else np.nanmedian(X, axis=0)
-    stat[np.isnan(stat)] = 0.0
-    res[rows, cols] = stat[cols]
+    stats[np.isnan(stats)] = 0.0
+    res[rows, cols] = stats[cols]
     return res
             
