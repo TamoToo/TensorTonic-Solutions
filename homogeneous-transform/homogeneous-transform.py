@@ -9,7 +9,7 @@ def apply_homogeneous_transform(T: list, points: list) -> np.ndarray:
     points = np.asarray(points, dtype=float)
     single_point = points.ndim == 1
     if single_point:
-        points = np.pad(points, (0, 1), constant_values=1)
+        points = np.pad(points, pad_width=(0, 1), constant_values=1)
     else:
         points = np.pad(points, pad_width=((0, 0), (0, 1)), constant_values=1)
     new_points = (T @ points.T).T
