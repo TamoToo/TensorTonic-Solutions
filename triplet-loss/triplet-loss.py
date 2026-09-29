@@ -1,0 +1,13 @@
+import numpy as np
+
+def triplet_loss(anchor: list, positive: list, negative: list, margin: float = 1.0) -> float:
+    """
+    Returns the loss as a float.
+    """
+    anchor = np.atleast_2d(np.asarray(anchor, dtype=float))
+    positive = np.atleast_2d(np.asarray(positive, dtype=float))
+    negative = np.atleast_2d(np.asarray(negative, dtype=float))
+    pos = np.sum((anchor - positive)**2, axis=1)
+    neg = np.sum((anchor - negative)**2, axis=1)
+    losses = np.maximum(0, pos - neg + margin)
+    return float(np.mean(losses))
