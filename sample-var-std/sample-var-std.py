@@ -6,7 +6,9 @@ def sample_var_std(x: list) -> dict:
     """
     # Write code here
     x = np.asarray(x, dtype=float)
+    var = float(np.var(x, ddof=1))
+    std = float(np.sqrt(var))
     return {
-        "variance": float(np.var(x, ddof=1)),
-        "standard_deviation": float(np.std(x, ddof=1)),
+        "variance": var,
+        "standard_deviation": std,
     }
